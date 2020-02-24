@@ -1,0 +1,329 @@
+% !TEX root = main.tex
+
+%############################################
+%page layout
+%############################################
+%European book class, index and lists in toc, two sided layout, chapters start on both sides
+\documentclass[idxtotoc, bibtotoc,listof=totoc ,12pt]{scrartcl} 
+
+% 1.5 line spacing and fix for arrays and tables.
+%\usepackage[onehalfspacing, nodisplayskipstretch]{setspace}
+%\renewcommand{\arraystretch}{0.75}
+
+%scalabel font similar to cm (necessary for bold-face headings)
+\usepackage{lmodern} 
+ 
+%sans serif default
+\renewcommand{\familydefault}{\sfdefault} 
+ 
+%define margins and dimensions of the page
+\usepackage[a4paper,includehead,left=2.5cm,right = 2.5cm ,top=2cm,bottom=2.5cm]{geometry}   
+ 
+%package to dynamically use \newpage with \needspace{length} 
+\usepackage{needspace}
+ 
+
+
+
+
+
+
+
+%############################################
+%create header and footer 
+%############################################ 
+ 
+%the package
+\usepackage[automark]{scrlayer-scrpage}
+
+%clear predefined header and footer
+\pagestyle{scrheadings} \clearscrheadfoot 
+
+%line in header
+\setheadsepline[\textwidth]{0.5pt} 
+
+%inner header [plain]{regualr}
+\ihead[]{\headmark} 
+
+%outer header [plain]{regualr}
+\ohead[]{\thepage} 
+
+
+
+
+
+
+
+
+
+
+
+
+
+%############################################
+%language settings
+%############################################
+
+%language 
+\usepackage[english]{babel} 
+
+%special characters
+\usepackage[utf8]{inputenc}	
+\usepackage[T1]{fontenc}
+
+%optimization of micro spaces 	
+\usepackage{microtype}	
+
+
+
+
+
+
+
+
+
+
+
+%############################################
+%colors and images
+%############################################
+
+%importing images
+\usepackage{graphicx} 
+
+%more colors
+\usepackage[dvipsnames]{xcolor} 
+
+%caption improvements
+\usepackage[font=footnotesize,format=plain, bf]{caption} 
+
+%more than one image in figure environment
+\usepackage[font=footnotesize]{subcaption} 
+
+%wrap text around figures
+\usepackage{wrapfig} 
+
+%colored frames in equations
+\usepackage{empheq}
+
+%tikz/pgf package to program graphics 
+\usepackage{tikz} 
+
+%some useful libraries. Babel to fix problems with babel package
+\usetikzlibrary{positioning, calc, intersections, cd, babel} 
+\usepackage{tikz-3dplot}
+
+
+
+
+
+
+
+
+
+
+%############################################
+%tables
+%############################################
+
+%colors in tables
+\usepackage{colortbl} 
+
+%long tables that allow page breaks
+\usepackage{longtable} 
+
+% join or separate cells 
+\usepackage{paralist} 
+
+% as above
+\usepackage{multirow} 
+
+
+
+
+
+%############################################
+%mathematics
+%############################################
+
+%standard maths
+\usepackage{amsmath,amsthm,amsfonts,amssymb,mathtools} 
+
+%\mathbbm{1} for unity operator
+\usepackage{bbm} 
+
+%\nicefrac{}{} and units
+\usepackage{units} 
+
+%crossing out in formulas
+\usepackage{cancel} 
+
+%shrinking formula in gather to fit page
+\usepackage{resizegather} 
+
+%tensor indices
+\usepackage{tensor} 
+
+%fixes space around \ldots
+\usepackage{ellipsis}
+
+%frames for theorems
+\usepackage{tcolorbox}
+\tcbuselibrary{skins,breakable}
+
+
+%allows to redefine margins dynamically
+\usepackage{scrextend} 
+
+
+
+
+
+
+%page breakes in multiline formulas
+\allowdisplaybreaks 
+
+%bold mathematics
+\makeatletter
+\g@addto@macro\bfseries{\boldmath}
+\makeatother
+
+
+
+%definition of the usual theorem environments
+
+%\newtheoremstyle{name}{space above}{space below}{content format}{indent space}{caption format}{after caption}{space below caption}{}
+
+\newtheoremstyle{plain}{\topsep}{\topsep}{\itshape}{}{\bf}{.\ \\}{.5ex}{}
+\newtheoremstyle{definition}{\topsep}{\topsep}{}{}{\bf}{.\ \\}{.5ex}{}
+\newtheoremstyle{info}{\topsep}{\topsep}{}{}{\bfseries \normalsize }{.\ \\}{.5ex}{}
+
+
+\theoremstyle{plain}
+\newtheorem{thm}{Theorem}[section]
+\newtheorem{cor}[thm]{Corollary}
+\newtheorem{lemm}[thm]{Lemma}
+\newtheorem{prop}[thm]{Proposition}
+
+%variable theorem name using \renewcommand{\VarThmName}{new name}
+\newcommand{\VarThmName}{VarThm} 
+\newtheorem{VarThm}[thm]{\VarThmName}
+\newtheorem{VarLemm}[thm]{\VarThmName}
+\newtheorem{VarCor}[thm]{\VarThmName}
+
+\theoremstyle{definition}
+\newtheorem{deff}[thm]{Definition}
+\newtheorem{prf}[thm]{Proof}
+\newtheorem{VarDef}[thm]{\VarThmName}
+
+\theoremstyle{info}
+\newtheorem{rem}[thm]{Remark}
+\newtheorem{exm}[thm]{Example}
+
+%frames for theorems
+
+\newenvironment{framedef}{
+	\begin{tcolorbox}[enhanced, colback = gray!50!blue!15, borderline = {0.5pt}{0mm}{gray!90!blue}, leftrule = 4pt, toprule = 0pt, bottomrule = 0pt, rightrule = 0 pt, beforeafter skip= 1em, breakable]
+		
+		\needspace{2cm}	
+		
+	}{\end{tcolorbox}	}
+
+
+\newenvironment{framethm}{
+	\begin{tcolorbox}[enhanced, colback = gray!50!blue!25, borderline = {0.5pt}{0mm}{gray!90!blue},leftrule = 5pt, toprule = 0pt, bottomrule = 0pt, rightrule = 0 pt, beforeafter skip= 1em, breakable]
+		
+		\needspace{2cm}
+		
+	}{\end{tcolorbox}	}
+
+
+
+\newenvironment{framelemm}{
+	\begin{tcolorbox}[enhanced, colback = gray!50!blue!10, borderline = {0.5pt}{0mm}{gray!90!blue}, leftrule = 2pt, toprule = 0pt, bottomrule = 0pt, rightrule = 0 pt ,beforeafter skip= 1em, breakable]
+		
+		\needspace{2cm}
+		
+	}{\end{tcolorbox}	}
+
+
+
+\newenvironment{framecor}{
+	\begin{tcolorbox}[enhanced, colback = gray!50!blue!6, borderline = {0.5pt}{0mm}{gray!90!blue}, leftrule = 0pt, toprule = 0pt, bottomrule = 0pt, rightrule = 0 pt, beforeafter skip= 1em, breakable]
+		
+		\needspace{2cm}	
+		
+	}{\end{tcolorbox}	}
+
+
+\newenvironment{framerem}{
+	\begin{tcolorbox}[enhanced, colback = gray!50!blue!0, borderline = {0.5pt}{0mm}{gray!90!blue},leftrule = 0pt, toprule = 0pt, bottomrule = 0pt, rightrule = 0 pt , beforeafter skip= 1em, breakable]
+		
+		\needspace{2cm}
+		\small
+		
+	}{\end{tcolorbox}	}
+
+
+
+%\newenvironment{framerem}{\vspace{-10pt}\begin{addmargin}[12pt]{12pt}\footnotesize}{\end{addmargin} \vspace{10pt}}
+
+\newenvironment{frameexm}{\vspace{-10pt}\begin{addmargin}[12pt]{12pt}\footnotesize}{\end{addmargin} \vspace{10pt}}
+
+\newenvironment{frameproof}[1][false]
+{\vspace{-10pt}\begin{addmargin}[12pt]{12pt}}{\end{addmargin} \vspace{10pt}}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+%############################################
+%directories and links
+%############################################
+
+%literature with Biblatex
+\usepackage[backend=bibtex, style=alphabetic]{biblatex} 
+
+%links in pdf
+\usepackage[colorlinks=true, linkcolor=Cerulean!75!black, citecolor=green!60!black, linktocpage=true]{hyperref} 
+
+
+
+
+
+
+
+
+%############################################
+%useful short commands
+%############################################	
+	
+%notation quantum mechanics
+\newcommand{\bra}[1]{\langle #1 |}
+\newcommand{\ket}[1]{| #1 \rangle}
+\newcommand{\braket}[1]{\langle #1 \rangle}
+\newcommand{\Bra}[1]{\left\langle #1 \right|}
+\newcommand{\Ket}[1]{\left| #1 \right\rangle}
+\newcommand{\Braket}[1]{\left\langle #1 \right\rangle}
+
+%\boxed with additional vertical space
+\newcommand{\widebox}[1]{\boxed{\hspace{1em}#1\hspace{1em}}}
+
+%tensor indices
+\newcommand{\tens}[1]{\indices{#1}}
+
+
+
+
+
+
+
