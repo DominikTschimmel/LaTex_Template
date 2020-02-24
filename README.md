@@ -4,19 +4,19 @@
 Some LaTex templates ready for use or to compare how certain things can be accomplished.
 
 
-- [How to use - general](#How-to-general)
- - [The template files](#How-to-general)
- - [Basics](#Basics)
- - [Chapters, sections, etc.](#Chapters-general)
- - [Mathematics](#Mathematics)
- - [Additional packages](#Additional)
- - [Troubleshooting](#Trouble)
-- [How to use - template specific](#How-to-specific)
- - [Thesis](#Thesis)
-   - [Front matter, preface and table of contents](#Front)
-   - [Chapters, sections, etc.](#Chapters-theis)
- - [Report](#Report)
- - [Letter](#Letter)
+* [How to use - general](#How-to-general)
+  * [The template files](#How-to-general)
+* [Basics](#Basics)
+  * [Chapters, sections, etc.](#Chapters-general)
+  * [Mathematics](#Mathematics)
+  * [Additional packages](#Additional)
+  * [Troubleshooting](#Trouble)
+* [How to use - template specific](#How-to-specific)
+  * [Thesis](#Thesis)
+     * [Front matter, preface and table of contents](#Front)
+     * [Chapters, sections, etc.](#Chapters-theis)
+  * [Report](#Report)
+  * [Letter](#Letter)
 
 
 # <a name="How-to-general"></a>How to use - general
