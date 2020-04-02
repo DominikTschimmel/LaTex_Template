@@ -8,7 +8,8 @@
 \documentclass[idxtotoc, bibtotoc,listof=totoc , twoside, openany,12pt]{scrbook} 
 
 % 1.5 line spacing and fix for arrays and tables.
-%\usepackage[onehalfspacing, nodisplayskipstretch]{setspace}
+%\usepackage[onehalfspacing]{setspace}
+%\setdisplayskipstretch{}
 %\renewcommand{\arraystretch}{0.75}
 
 %scalable font similar to cm
@@ -333,15 +334,15 @@
 \newenvironment{framedef}{
 	\begin{tcolorbox}[enhanced, colback = gray!50!blue!15, borderline = {0.5pt}{0mm}{gray!90!blue}, leftrule = 4pt, toprule = 0pt, bottomrule = 0pt, rightrule = 0 pt, beforeafter skip= 1em, breakable]
 		
-	\needspace{2cm}	
+	\needspace{0.5cm}	
 	
-	}{\end{tcolorbox}	}
+	}{\end{tcolorbox} }
 
 
 \newenvironment{framethm}{
 	\begin{tcolorbox}[enhanced, colback = gray!50!blue!25, borderline = {0.5pt}{0mm}{gray!90!blue},leftrule = 5pt, toprule = 0pt, bottomrule = 0pt, rightrule = 0 pt, beforeafter skip= 1em, breakable]
 	
-	\needspace{2cm}
+	\needspace{0.5cm}
 		
 	}{\end{tcolorbox}	}
 
@@ -350,16 +351,16 @@
 \newenvironment{framelemm}{
 	\begin{tcolorbox}[enhanced, colback = gray!50!blue!10, borderline = {0.5pt}{0mm}{gray!90!blue}, leftrule = 2pt, toprule = 0pt, bottomrule = 0pt, rightrule = 0 pt ,beforeafter skip= 1em, breakable]
 		
-	\needspace{2cm}
+	\needspace{0.5cm}
 		
 	}{\end{tcolorbox}	}
 
 
 
 \newenvironment{framecor}{
-	\begin{tcolorbox}[enhanced, colback = gray!50!blue!6, borderline = {0.5pt}{0mm}{gray!90!blue}, leftrule = 0pt, toprule = 0pt, bottomrule = 0pt, rightrule = 0 pt, beforeafter skip= 1em, breakable]
+	\begin{tcolorbox}[enhanced, colback = gray!50!blue!6, borderline = {0.5pt}{0mm}{gray!90!blue}, leftrule = 2pt, toprule = 0pt, bottomrule = 0pt, rightrule = 0 pt ,beforeafter skip= 1em, breakable]
 		
-	\needspace{2cm}	
+	\needspace{0.5cm}	
 		
 	}{\end{tcolorbox}	}
 
@@ -367,16 +368,21 @@
 \newenvironment{framerem}{
 	\begin{tcolorbox}[enhanced, colback = gray!50!blue!0, borderline = {0.5pt}{0mm}{gray!90!blue},leftrule = 0pt, toprule = 0pt, bottomrule = 0pt, rightrule = 0 pt , beforeafter skip= 1em, breakable]
 	
-	\needspace{2cm}
+	\needspace{0.5cm}
 	\small
 		
 	}{\end{tcolorbox}	}
 
-
+\newenvironment{frameexm}{
+	\begin{tcolorbox}[enhanced, colback = gray!50!blue!0, borderline = {0.5pt}{0mm}{gray!90!blue},leftrule = 0pt, toprule = 0pt, bottomrule = 0pt, rightrule = 0 pt , beforeafter skip= 1em, breakable]
+		
+		\needspace{0.5cm}
+		\small
+		
+	}{\end{tcolorbox}	}
 
 %\newenvironment{framerem}{\vspace{-10pt}\begin{addmargin}[12pt]{12pt}\footnotesize}{\end{addmargin} \vspace{10pt}}
 
-\newenvironment{frameexm}{\vspace{-10pt}\begin{addmargin}[12pt]{12pt}\footnotesize}{\end{addmargin} \vspace{10pt}}
 
 \newenvironment{frameproof}[1][false]
 {\vspace{-10pt}\begin{addmargin}[12pt]{12pt}}{\end{addmargin} \vspace{10pt}}
@@ -401,7 +407,7 @@
 %############################################
 
 %literature with Biblatex
-\usepackage[backend=bibtex, style=alphabetic]{biblatex} 
+\usepackage[backend=bibtex, sorting = nyt, style=alphabetic]{biblatex} 
 
 %index package
 \usepackage{imakeidx}
