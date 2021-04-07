@@ -82,8 +82,8 @@ A general advice if unknown errors occur, is to delete the temporary files, e.g.
 
 file | purpose
 -----|--------
-Thesis_Setup.tex| Configuration of the document and definition of the commands. Changes of the layout should be made here.
-main.tex| The main file that loads the setup. Here you can put the content of the document. It is adviesd to write the contents in seperate files that can then be loaded by `\input{Your_File.tex}`.
+main .tex| Configuration of the document and definition of the commands. Changes of the layout should be made here.
+content.tex| Here you can put the content of the document. It is adviesd to write the contents in further seperate files that can then be loaded by `\input{Your_File.tex}`.
 title_page.tex | Thesis_Setup loads this file to produce the title page. So use this file to create your title page as usual.
 index_style.ist| This file defines the style of the index. The package `imakeidx` is loaded by default.
 Literature.bib| BibTex literature file that is loaded.
@@ -99,8 +99,8 @@ Chapters, sections, etc. work as usual. There are however two new commands. `\Ch
 
 file | purpose
 -----|--------
-Report_Setup.tex| Configuration of the document and definition of the commands. Changes of the layout should be made here.
-main.tex| The main file that loads the setup. Here you can put the content of the document. It is adviesd to write the contents in seperate files that can then be loaded by `\input{Your_File.tex}`.
+main.tex| Configuration of the document and definition of the commands. Changes of the layout should be made here.
+conten.tex| It is advised to write the contents in further separate files that can then be loaded by `\input{Your_File.tex}`.
 index_style.ist| This file defines the style of the index. The package `imakeidx` is loaded by default.
 Literature.bib| BibTex literature file that is loaded.
 
