@@ -2,10 +2,23 @@
 %page layout
 %############################################
 
-%European book class, index and lists in toc, two sided layout, chapters start on both sides, 12 pt font
-\documentclass[idxtotoc, bibtotoc,listof=totoc , twoside, openany,12pt]{scrbook} 
+%modern book class, index and lists in toc, two sided layout, chapters start on both sides, 12 pt font
+\documentclass[index=totoc, bibliography=totoc,listof=totoc , twoside, openany,12pt]{scrbook} 
 
-% 1.5 line spacing and fix for arrays and tables.
+
+%recover old font commands for older packages.
+\makeatletter
+\DeclareOldFontCommand{\rm}{\normalfont\rmfamily}{\mathrm}
+\DeclareOldFontCommand{\sf}{\normalfont\sffamily}{\mathsf}
+\DeclareOldFontCommand{\tt}{\normalfont\ttfamily}{\mathtt}
+\DeclareOldFontCommand{\bf}{\normalfont\bfseries}{\mathbf}
+\DeclareOldFontCommand{\it}{\normalfont\itshape}{\mathit}
+\DeclareOldFontCommand{\sl}{\normalfont\slshape}{\@nomath\sl}
+\DeclareOldFontCommand{\sc}{\normalfont\scshape}{\@nomath\sc}
+\makeatother
+
+
+%1.5 line spacing and fix for arrays and tables.
 %\usepackage[onehalfspacing]{setspace}
 %\setdisplayskipstretch{}
 %\renewcommand{\arraystretch}{0.75}
@@ -35,7 +48,7 @@
 \pagestyle{scrheadings} \clearscrheadfoot 
 
 %line below header
-\setheadsepline[\textwidth]{0.5pt} 
+\KOMAoptions{headsepline=0.5pt:\textwidth}
 
 %inner header [plain]{regualr}
 \ihead[]{\headmark} 
@@ -55,6 +68,8 @@
 %empty pages and title pages
 %############################################ 
 
+%write even/odd page check to aux file with \checkoddpage 
+\usepackage{ifoddpage}
 
 
 %text on empty pages
@@ -67,6 +82,7 @@
 \renewcommand*{\cleardoubleoddstandardpage}{%
 	\clearpage
 	\if@twoside
+	\checkoddpage
 	\ifodd\c@page
 	\else
 	\blankpage
@@ -107,48 +123,45 @@
 %############################################
 %adjust headings
 %############################################
-\usepackage[noindentafter,nobottomtitles*]{titlesec}
-\renewcommand{\bottomtitlespace}{48pt}
 
-%\titleformat{\heading}[form]{format}{label}{spacing to label}{}[after code]
-%\titlespacing{\heading}{left}{above}{below}
+%Print chapter number in separate line
+\KOMAoption{chapterprefix}{true}
 
-%chapter
-\titleformat{\chapter}[display] 
-{\ifthispageodd{\filleft}{}\huge\bfseries \fontfamily{bch} \selectfont}
-{\ifthispageodd
-	{\makebox[\linewidth][r]{\raisebox{115pt}[0pt][0pt]{\textcolor{gray!35}{\fontsize{80pt}{95pt}\rmfamily\selectfont\thechapter}}} }
-	{\makebox[\linewidth][l]{\raisebox{115pt}[0pt][0pt]{\textcolor{gray!35}{\fontsize{80pt}{95pt}\rmfamily\selectfont\thechapter}}}  }
-}  
-{-12ex} 
-{}  
-[\vspace{0.5ex}\titlerule]
+%Define fonts for the chapter
+\RedeclareSectionCommand[afterindent=false,beforeskip=0pt, innerskip = 0pt,
+font={\checkoddpage \ifoddpage \hfill \else \fi \huge\bfseries\fontfamily{bch}\selectfont},
+prefixfont={\fontsize{85pt}{95pt}\color{black!20}\bfseries \selectfont}]{chapter}
 
-%chapters without number
-\titleformat{name=\chapter,numberless}[display]
-{\ifthispageodd{\filleft}{}\huge\bfseries\fontfamily{bch} \selectfont} 
-{}  
-{-16.8ex}  
-{}  
-[\vspace{1ex}\titlerule]
+%Style of chapter numbers
+\renewcommand*{\chapterformat}{\thechapter}
 
-\titlespacing{\chapter}{0pt}{3cm}{10pt}[0pt]
+%Alignment of the chapter title
+\renewcommand*{\raggedchapter}{ \checkoddpage \ifoddpage \raggedleft \else \raggedright \fi }
 
+%Layout of chapter content
+\renewcommand{\chapterlineswithprefixformat}[3]{%
+	#2 %newlines already included 
+	#3 
+	\vspace{-1cm}
+	\rule[-1\baselineskip]{\textwidth}{0.5pt}%
+}
 
-\titleformat{\section}[block]{\bfseries\Large \fontfamily{bch} \selectfont}{\thesection}{0.7em}{}
-\titlespacing{\section}{0pt}{28pt}{10pt}                  		
-
-
-\titleformat{\subsection}[block]{\bfseries\large\fontfamily{bch} \selectfont}{\thesubsection}{0.7em}{}\titlespacing{\subsection}{0pt}{20pt}{7pt}                  		
-
-\titleformat{\subsubsection}[block]{\bfseries\fontfamily{bch} \selectfont}{\thesubsubsection}{0pt}{}  \titlespacing{\subsubsection}{0pt}{10pt}{5pt}                  	
+%chapter spacings
+\renewcommand*{\chapterheadstartvskip}{\vspace{-60pt}}
+\renewcommand*{\chapterheadendvskip}{\vspace{10pt}}
 
 
 
+
+
+%Adjustments to sections
+\RedeclareSectionCommand[font={\Large \bfseries \fontfamily{bch}\selectfont}]{section}
+\RedeclareSectionCommand[font={\large \bfseries \fontfamily{bch}\selectfont}]{subsection}
+\RedeclareSectionCommand[font={\bfseries \fontfamily{bch}\selectfont}]{subsubsection}
 
 
 %intro text for chapters
-\newcommand{\ChapterStart}[1]{{\small \sffamily \selectfont #1 }\\
+\newcommand{\ChapterStart}[1]{ {\small \sffamily \selectfont #1 }\\
 	\rule{\textwidth}{0.5pt}}
 
 
@@ -279,9 +292,6 @@
 \tcbuselibrary{skins,breakable}
 
 
-%allows to redefine margins dynamically
-\usepackage{scrextend} 
-
 
 
 
@@ -328,56 +338,12 @@
 \newtheorem{exm}[thm]{Example}
 
 %frames for theorems
-\newenvironment{framedef}{
-	\begin{tcolorbox}[enhanced, colback = gray!50!blue!15, borderline = {0.5pt}{0mm}{gray!90!blue}, leftrule = 4pt, toprule = 0pt, bottomrule = 0pt, rightrule = 0 pt, beforeafter skip= 1em, breakable, after={\everypar={{\setbox0=\lastbox}\everypar{}}}]
-		
-		\needspace{2cm}	
-		
-	}{\end{tcolorbox} }
-
-
-\newenvironment{framethm}{
-	\begin{tcolorbox}[enhanced, colback = gray!50!blue!25, borderline = {0.5pt}{0mm}{gray!90!blue},leftrule = 5pt, toprule = 0pt, bottomrule = 0pt, rightrule = 0 pt, beforeafter skip= 1em, breakable, after={\everypar={{\setbox0=\lastbox}\everypar{}}}]
-		
-		\needspace{2cm}
-		
-	}{\end{tcolorbox}	}
-
-
-
-\newenvironment{framelemm}{
-	\begin{tcolorbox}[enhanced, colback = gray!50!blue!10, borderline = {0.5pt}{0mm}{gray!90!blue}, leftrule = 2pt, toprule = 0pt, bottomrule = 0pt, rightrule = 0 pt ,beforeafter skip= 1em, breakable, after={\everypar={{\setbox0=\lastbox}\everypar{}}}]
-		
-		\needspace{2cm}
-		
-	}{\end{tcolorbox}	}
-
-
-
-\newenvironment{framecor}{
-	\begin{tcolorbox}[enhanced, colback = gray!50!blue!6, borderline = {0.5pt}{0mm}{gray!90!blue}, leftrule = 0pt, toprule = 0pt, bottomrule = 0pt, rightrule = 0 pt, beforeafter skip= 1em, breakable, after={\everypar={{\setbox0=\lastbox}\everypar{}}}]
-		
-		\needspace{2cm}	
-		
-	}{\end{tcolorbox}	}
-
-
-\newenvironment{framerem}{
-	\begin{tcolorbox}[enhanced, colback = gray!50!blue!0, borderline = {0.5pt}{0mm}{gray!90!blue},leftrule = 0pt, toprule = 0pt, bottomrule = 0pt, rightrule = 0 pt , beforeafter skip= 1em, breakable, after={\everypar={{\setbox0=\lastbox}\everypar{}}}]
-		
-		\needspace{2cm}
-		\small
-		
-	}{\end{tcolorbox}	}
-	
-\newenvironment{frameexm}{
-	\begin{tcolorbox}[enhanced, colback = gray!50!blue!0, borderline = {0.5pt}{0mm}{gray!90!blue},leftrule = 0pt, toprule = 0pt, bottomrule = 0pt, rightrule = 0 pt , beforeafter skip= 1em, breakable, after={\everypar={{\setbox0=\lastbox}\everypar{}}}]
-		
-		\needspace{0.5cm}
-		\small
-		
-	}{\end{tcolorbox}	}
-
+\newtcolorbox{framedef}{enhanced, colback = gray!50!blue!15, borderline = {0.5pt}{0mm}{gray!90!blue}, leftrule = 4pt, toprule = 0pt, bottomrule = 0pt, rightrule = 0 pt, beforeafter skip= 1em, breakable, after={\noindent}}
+\newtcolorbox{framethm}{enhanced, colback = gray!50!blue!25, borderline = {0.5pt}{0mm}{gray!90!blue},leftrule = 5pt, toprule = 0pt, bottomrule = 0pt, rightrule = 0 pt, beforeafter skip= 1em, breakable, after={\noindent}}
+\newtcolorbox{framelemm}{enhanced, colback = gray!50!blue!10, borderline = {0.5pt}{0mm}{gray!90!blue}, leftrule = 2pt, toprule = 0pt, bottomrule = 0pt, rightrule = 0 pt ,beforeafter skip= 1em, breakable, after={\noindent}}
+\newtcolorbox{framecor}{enhanced, colback = gray!50!blue!6, borderline = {0.5pt}{0mm}{gray!90!blue}, leftrule = 0pt, toprule = 0pt, bottomrule = 0pt, rightrule = 0 pt, beforeafter skip= 1em, breakable, after={\noindent}}
+\newtcolorbox{frameexm}{enhanced, colback = gray!50!blue!0, borderline = {0.5pt}{0mm}{gray!90!blue},leftrule = 0pt, toprule = 0pt, bottomrule = 0pt, rightrule = 0 pt , beforeafter skip= 1em, breakable, after={\noindent}}
+\newtcolorbox{framerem}{enhanced, colback = gray!50!blue!0, borderline = {0.5pt}{0mm}{gray!90!blue},leftrule = 0pt, toprule = 0pt, bottomrule = 0pt, rightrule = 0 pt , beforeafter skip= 1em, breakable, after={\noindent}}
 
 \newenvironment{frameproof}
 {\vspace{-10pt}\begin{addmargin}[12pt]{12pt}}{\end{addmargin} \vspace{10pt}}
@@ -402,7 +368,8 @@
 %############################################
 
 %literature with Biblatex
-\usepackage[backend=bibtex, sorting = nyt, style=alphabetic]{biblatex} 
+\usepackage[backend=biber, sorting = nyt, style=alphabetic]{biblatex} 
+\usepackage{csquotes}
 
 %index package
 \usepackage{imakeidx}
@@ -451,7 +418,7 @@
 \newcommand{\FrontMatter}[2]{
 
 \frontmatter
-\newgeometry{a4paper,includeheadfoot,inner=2.5cm,outer = 2.5cm ,top=1cm,bottom=1cm}	
+\newgeometry{includeheadfoot,inner=2.5cm,outer = 2.5cm ,top=1cm,bottom=1cm}	
 \include{title_page}
 \restoregeometry
 \setcounter{page}{0}
