@@ -4,6 +4,18 @@
 %modern book class, index and lists in toc, two sided layout, chapters start on both sides
 \documentclass[index=totoc, bibliography=totoc,listof=totoc, 12pt]{scrartcl} 
 
+\makeatletter
+\DeclareOldFontCommand{\rm}{\normalfont\rmfamily}{\mathrm}
+\DeclareOldFontCommand{\sf}{\normalfont\sffamily}{\mathsf}
+\DeclareOldFontCommand{\tt}{\normalfont\ttfamily}{\mathtt}
+\DeclareOldFontCommand{\bf}{\normalfont\bfseries}{\mathbf}
+\DeclareOldFontCommand{\it}{\normalfont\itshape}{\mathit}
+\DeclareOldFontCommand{\sl}{\normalfont\slshape}{\@nomath\sl}
+\DeclareOldFontCommand{\sc}{\normalfont\scshape}{\@nomath\sc}
+\makeatother
+
+
+
 % 1.5 line spacing and fix for arrays and tables.
 %\usepackage[onehalfspacing, nodisplayskipstretch]{setspace}
 %\setdisplayskipstretch{}
