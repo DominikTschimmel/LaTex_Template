@@ -15,7 +15,7 @@ Some LaTex templates ready for use or to compare how certain things can be accom
   * [Thesis](#Thesis)
      * [Front matter, preface and table of contents](#Front)
      * [Chapters, sections, etc.](#Chapters-theis)
-  * [Report](#Report)
+  * [Article](#Article)
   * [Letter](#Letter)
 
 
@@ -95,7 +95,7 @@ The front matter, i.e. title page, table of contents and intentional blank pages
 Chapters, sections, etc. work as usual. There are however two new commands. `\ChapterStart{text}` (right after `\chapter{title}`) creates a chapter description. `\PartWithText{part title}{part text}` allows to create a new part with text on the part page.
 
 
-## <a name="Report"></a>Report
+## <a name="Article"></a>Article
 
 file | purpose
 -----|--------

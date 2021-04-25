@@ -1,12 +1,12 @@
 %############################################
-%page layout
+%Page layout.
 %############################################
 
-%modern book class, index and lists in toc, two sided layout, chapters start on both sides, 12 pt font
+%Modern book class, index and lists in toc, two sided layout, chapters start on both sides, 12 pt font.
 \documentclass[index=totoc, bibliography=totoc,listof=totoc , twoside, openany,12pt]{scrbook} 
 
 
-%recover old font commands for older packages.
+%Recover old font commands for older packages.
 \makeatletter
 \DeclareOldFontCommand{\rm}{\normalfont\rmfamily}{\mathrm}
 \DeclareOldFontCommand{\sf}{\normalfont\sffamily}{\mathsf}
@@ -23,37 +23,39 @@
 %\setdisplayskipstretch{}
 %\renewcommand{\arraystretch}{0.75}
 
-%scalable font similar to cm
+%Scalable font similar to cm.
 \usepackage{lmodern} 
  
-%sans serif font
+%Sans serif font.
 %\renewcommand{\familydefault}{\sfdefault} 
  
-%define margins and dimensions
+%Define margins and dimensions.
 \usepackage[a4paper,includehead,bindingoffset=1cm,inner=2.0cm,outer = 2.5cm ,top=2cm,bottom=2.5cm]{geometry}   
  
-%package for conditional use of \newpage
-\usepackage{needspace}
+
  
+
+
+
 
 
 %############################################
-%create header and footer 
+%Create header and footer.
 %############################################ 
  
-%the package
+%The package.
 \usepackage[automark]{scrlayer-scrpage}
 
-%clear predefined header and footer
+%Clear predefined header and footer.
 \pagestyle{scrheadings} \clearscrheadfoot 
 
-%line below header
+%Line below header.
 \KOMAoptions{headsepline=0.5pt:\textwidth}
 
-%inner header [plain]{regualr}
+%Inner header [plain]{regualr}.
 \ihead[]{\headmark} 
 
-%outer header [plain]{regualr}
+%Outer header [plain]{regualr}.
 \ohead[]{\thepage} 
 
 
@@ -65,14 +67,14 @@
 
 
 %############################################
-%empty pages and title pages
+%Empty pages and title pages.
 %############################################ 
 
-%write even/odd page check to aux file with \checkoddpage 
+%Write even/odd page-check-results to aux file with \checkoddpage. 
 \usepackage{ifoddpage}
 
 
-%text on empty pages
+%Text on empty pages.
 \newcommand*{\blankpage}{%
 	\par\vspace*{\fill}%
 	{\centering \textcolor{black!80}{This page intentionally left blank.}\par}%the text to be displayed
@@ -95,8 +97,8 @@
 \makeatother
 
 
-%part command that allows for text on the same page
-%\PartWithText{title}{text}
+%Part command that allows for text on the same page.
+%Defines \PartWithText{title}{text}.
 \newcommand{\PartWithText}[2]{
 \setpartpreamble[u,c][0.9 \textwidth]{
 	\vspace{1cm}
@@ -121,24 +123,24 @@
 
 
 %############################################
-%adjust headings
+%Adjust headings.
 %############################################
 
-%Print chapter number in separate line
+%Print chapter number in separate line.
 \KOMAoption{chapterprefix}{true}
 
-%Define fonts for the chapter
+%Define fonts for the chapter.
 \RedeclareSectionCommand[afterindent=false,beforeskip=0pt, innerskip = 0pt,
 font={\checkoddpage \ifoddpage \hfill \else \fi \huge\bfseries\fontfamily{bch}\selectfont},
 prefixfont={\fontsize{85pt}{95pt}\color{black!20}\bfseries \selectfont}]{chapter}
 
-%Style of chapter numbers
+%Style of chapter numbers.
 \renewcommand*{\chapterformat}{\thechapter}
 
-%Alignment of the chapter title
+%Alignment of the chapter title.
 \renewcommand*{\raggedchapter}{ \checkoddpage \ifoddpage \raggedleft \else \raggedright \fi }
 
-%Layout of chapter content
+%Layout of chapter content.
 \renewcommand{\chapterlineswithprefixformat}[3]{%
 	#2 %newlines already included 
 	#3 
@@ -146,7 +148,7 @@ prefixfont={\fontsize{85pt}{95pt}\color{black!20}\bfseries \selectfont}]{chapter
 	\rule[-1\baselineskip]{\textwidth}{0.5pt}%
 }
 
-%chapter spacings
+%Chapter spacings.
 \renewcommand*{\chapterheadstartvskip}{\vspace{-60pt}}
 \renewcommand*{\chapterheadendvskip}{\vspace{10pt}}
 
@@ -154,13 +156,13 @@ prefixfont={\fontsize{85pt}{95pt}\color{black!20}\bfseries \selectfont}]{chapter
 
 
 
-%Adjustments to sections
+%Adjustments to sections.
 \RedeclareSectionCommand[font={\Large \bfseries \fontfamily{bch}\selectfont}]{section}
 \RedeclareSectionCommand[font={\large \bfseries \fontfamily{bch}\selectfont}]{subsection}
 \RedeclareSectionCommand[font={\bfseries \fontfamily{bch}\selectfont}]{subsubsection}
 
 
-%intro text for chapters
+%Intro text for chapters.
 \newcommand{\ChapterStart}[1]{ {\small \sffamily \selectfont #1 }\\
 	\rule{\textwidth}{0.5pt}}
 
@@ -178,17 +180,17 @@ prefixfont={\fontsize{85pt}{95pt}\color{black!20}\bfseries \selectfont}]{chapter
 
 
 %############################################
-%language settings
+%Language settings.
 %############################################
 
-%language 
+%Choosing default document language.
 \usepackage[english]{babel} 
 
-%special characters
+%Allow special characters.
 \usepackage[utf8]{inputenc}	
 \usepackage[T1]{fontenc}
 
-%optimization of micro spaces 	
+%Optimization of micro spaces.
 \usepackage{microtype}	
 
 
@@ -202,31 +204,32 @@ prefixfont={\fontsize{85pt}{95pt}\color{black!20}\bfseries \selectfont}]{chapter
 
 
 %############################################
-%colors and images
+%Colors and images.
 %############################################
 
-%importing images
+%Importing images.
 \usepackage{graphicx} 
 
-%more colors
+%More colors.
 \usepackage[dvipsnames]{xcolor} 
 
-%caption improvements
+%Caption improvements
+%Use \captionof{floating_type, e.g. figure}[figure/table entry]{Text} to create numbered captions outside of floating environments.
 \usepackage[font=footnotesize,format=plain, bf]{caption} 
 
-%more than one image in figure environments
+%More than one image in figure environments.
 \usepackage[font=footnotesize]{subcaption} 
 
-%wrap text around figures
+%Wrap text around figures.
 \usepackage{wrapfig} 
 
-%colored frames in equations
+%Colored frames in equations.
 \usepackage{empheq}
 
-%tikz/pgf package to program graphics 
+%Tikz/pgf package to program graphics.
 \usepackage{tikz} 
 
-%some useful libraries. Babel to fix problems with babel package
+%Some useful libraries. Babel to fix problems with babel package.
 \usetikzlibrary{positioning, calc, intersections, cd, babel} 
 \usepackage{tikz-3dplot}
 
@@ -240,22 +243,21 @@ prefixfont={\fontsize{85pt}{95pt}\color{black!20}\bfseries \selectfont}]{chapter
 
 
 %############################################
-%tables
+%Tables and lists.
 %############################################
 
-%colors in tables
+%Colors in tables.
 \usepackage{colortbl} 
 
-%long tables that allow page breaks
+%Long tables that allows page breaks.
 \usepackage{longtable} 
 
-%join or separate cells 
-\usepackage{paralist} 
-
-%as above
+%Join cells in a row.
+%\multicolumn{n}{cols}{text} already included. \multirow{n}{width, * for default size}{text} is added by the package.
 \usepackage{multirow} 
 
-
+%Additional counters for enumerations, e.g. [i)].
+\usepackage{paralist} 
 
 
 
@@ -263,31 +265,31 @@ prefixfont={\fontsize{85pt}{95pt}\color{black!20}\bfseries \selectfont}]{chapter
 
 
 %############################################
-%mathematics
+%Mathematics.
 %############################################
 
-%standard maths
+%Standard mathematics.
 \usepackage{amsmath,amsthm,amsfonts,amssymb,mathtools} 
 
-%\mathbbm{1} for unity operator
+%\mathbbm{1} for unity operator.
 \usepackage{bbm} 
 
-%\nicefrac{}{} and units
+%\nicefrac{}{} and units.
 \usepackage{units} 
 
-%crossing out in formulas
+%Crossing out in formulas with \cancel{expression}.
 \usepackage{cancel} 
 
-%shrinking formula in gather to fit page
+%Shrinking formula in gather to fit page.
 \usepackage{resizegather} 
 
-%tensor indices
+%Tensor indices
 \usepackage{tensor} 
 
-%fixes space around \ldots
+%Fixes space around \ldots.
 \usepackage{ellipsis}
 
-%frames for theorems
+%Frames for theorems.
 \usepackage{tcolorbox}
 \tcbuselibrary{skins,breakable}
 
@@ -297,19 +299,19 @@ prefixfont={\fontsize{85pt}{95pt}\color{black!20}\bfseries \selectfont}]{chapter
 
 
 
-%page breakes in multiline formulas
+%Page breakes in multiline formulas.
 \allowdisplaybreaks 
 
-%bold mathematics
+%Bold mathematics in headings, etc..
 \makeatletter
 \g@addto@macro\bfseries{\boldmath}
 \makeatother
 
 
 
-%definition of the usual theorem environments
+%Definition of the usual theorem environments.
 
-%\newtheoremstyle{name}{space above}{space below}{content format}{indent space}{caption format}{after caption}{space below caption}{}
+%\newtheoremstyle{name}{space above}{space below}{content format}{indent space}{caption format}{after caption}{space below caption}{}.
 
 \newtheoremstyle{plain}{\topsep}{\topsep}{\itshape}{}{\bf}{.\ \\}{.5ex}{}
 \newtheoremstyle{definition}{\topsep}{\topsep}{}{}{\bf}{.\ \\}{.5ex}{}
@@ -322,7 +324,7 @@ prefixfont={\fontsize{85pt}{95pt}\color{black!20}\bfseries \selectfont}]{chapter
 \newtheorem{lemm}[thm]{Lemma}
 \newtheorem{prop}[thm]{Proposition}
 
-%variable theorem name using \renewcommand{\VarThmName}{new name}
+%Variable theorem name using \renewcommand{\VarThmName}{new name}.
 \newcommand{\VarThmName}{VarThm} 
 \newtheorem{VarThm}[thm]{\VarThmName}
 \newtheorem{VarLemm}[thm]{\VarThmName}
@@ -337,7 +339,7 @@ prefixfont={\fontsize{85pt}{95pt}\color{black!20}\bfseries \selectfont}]{chapter
 \newtheorem{rem}[thm]{Remark}
 \newtheorem{exm}[thm]{Example}
 
-%frames for theorems
+%Frames for theorems.
 \newtcolorbox{framedef}{enhanced, colback = gray!50!blue!15, borderline = {0.5pt}{0mm}{gray!90!blue}, leftrule = 4pt, toprule = 0pt, bottomrule = 0pt, rightrule = 0 pt, beforeafter skip= 1em, breakable, after={\noindent}}
 \newtcolorbox{framethm}{enhanced, colback = gray!50!blue!25, borderline = {0.5pt}{0mm}{gray!90!blue},leftrule = 5pt, toprule = 0pt, bottomrule = 0pt, rightrule = 0 pt, beforeafter skip= 1em, breakable, after={\noindent}}
 \newtcolorbox{framelemm}{enhanced, colback = gray!50!blue!10, borderline = {0.5pt}{0mm}{gray!90!blue}, leftrule = 2pt, toprule = 0pt, bottomrule = 0pt, rightrule = 0 pt ,beforeafter skip= 1em, breakable, after={\noindent}}
@@ -364,42 +366,51 @@ prefixfont={\fontsize{85pt}{95pt}\color{black!20}\bfseries \selectfont}]{chapter
 
 
 %############################################
-%directories and links
+%Directories and links.
 %############################################
 
-%literature with Biblatex
+%Literature with Biblatex.
 \usepackage[backend=bibtex, sorting = nyt, style=alphabetic]{biblatex} 
 \usepackage{csquotes}
 
-%index package
+%Index package.
 \usepackage{imakeidx}
 
-%literature file
+%Literature file.
 \addbibresource{Literatur.bib} 
 
-%fix for too long entries
+%Fixing too long entries.
 \makeatletter
 \def\@idxitem{\par\hangindent 2ex}
 \makeatother
 
- %create index
+%Create index.
 \makeindex[intoc,options= -s index_style.ist]
 
-%links in pdf
-\usepackage[colorlinks=true, linkcolor=Cerulean!75!black, citecolor=green!60!black, linktocpage=true]{hyperref} 
-
-
-
-
-
+%Links in pdf.
+\usepackage[colorlinks=true, linkcolor=Cerulean!75!black, citecolor=green!60!black, urlcolor=Cerulean!75!black, linktocpage=true]{hyperref} 
 
 
 
 %############################################
-%useful short commands
+%Other useful packages. 
+%############################################	
+
+
+%Package for conditional use of \newpage: \needspace{2cm}.
+\usepackage{needspace}
+
+%Defines \FloatBarrier that blocks floating objects past the next \FloatBarrier command.
+\usepackage{placeins}
+
+%Rotate figures tables with \begin{sidewaysfigure} ... \end{sidewaysfigure} and sidewaystable...
+\usepackage{rotating}
+
+%############################################
+%Useful short commands.
 %############################################	
 	
-%notation quantum mechanics
+%Notation quantum mechanics.
 \newcommand{\bra}[1]{\langle #1 |}
 \newcommand{\ket}[1]{| #1 \rangle}
 \newcommand{\braket}[1]{\langle #1 \rangle}
@@ -407,46 +418,33 @@ prefixfont={\fontsize{85pt}{95pt}\color{black!20}\bfseries \selectfont}]{chapter
 \newcommand{\Ket}[1]{\left| #1 \right\rangle}
 \newcommand{\Braket}[1]{\left\langle #1 \right\rangle}
 
-%\boxed with additional horizontal space
+%\boxed with additional horizontal space.
 \newcommand{\widebox}[1]{\boxed{\hspace{1em}#1\hspace{1em}}}
 
-%tensor indices
-\newcommand{\tens}[1]{\indices{#1}}
 
 
-%set front matter {title}{text}
+%Set front matter {title}{text}.
 \newcommand{\FrontMatter}[2]{
+	\frontmatter
+	\newgeometry{includeheadfoot,inner=2.5cm,outer = 2.5cm ,top=1cm,bottom=1cm}	
+	\include{title_page}
+	\restoregeometry
+	\setcounter{page}{0}
+	\cleardoublepage
 
-\frontmatter
-\newgeometry{includeheadfoot,inner=2.5cm,outer = 2.5cm ,top=1cm,bottom=1cm}	
-\include{title_page}
-\restoregeometry
-\setcounter{page}{0}
-\cleardoublepage
+	\chapter*{#1}
+	\addcontentsline{toc}{chapter}{#1}
+	#2
 
-
-
-
-\chapter*{#1}
-\addcontentsline{toc}{chapter}{#1}
-#2
-
-
-
-
-\cleardoublepage
-
-\tableofcontents
-\mainmatter
-
-
+	\cleardoublepage
+	\tableofcontents
+	\mainmatter
 }
 
 
 
 
 \newcommand{\FrontNoPreface}{
-	
 	\frontmatter
 	\newgeometry{a4paper,includeheadfoot,inner=2.5cm,outer = 2.5cm ,top=1cm,bottom=1cm}	
 	\include{title_page}
@@ -454,9 +452,15 @@ prefixfont={\fontsize{85pt}{95pt}\color{black!20}\bfseries \selectfont}]{chapter
 	\setcounter{page}{0}
 	\tableofcontents
 	\mainmatter
-	
-	
 }
+
+
+
+%Keep custom packages separated from the main.tex to allow easier updates.
+\input{CustomPackages.tex}
+
+
+
 
 
 \begin{document}
