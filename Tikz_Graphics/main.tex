@@ -1,0 +1,95 @@
+%Standalone output. Only use size of content for the pdf.
+\documentclass{standalone} 
+
+%Scalable font similar to cm.
+\usepackage{lmodern} 
+ 
+ 
+
+%############################################
+%Colors and images.
+%############################################
+
+%Importing images.
+\usepackage{graphicx} 
+
+%More colors.
+\usepackage[dvipsnames]{xcolor} 
+
+%Colored frames in equations.
+\usepackage{empheq}
+
+%Tikz/pgf package to program graphics.
+\usepackage{tikz} 
+
+%Some useful libraries. Babel to fix problems with babel package.
+\usetikzlibrary{positioning, calc, intersections, cd, babel} 
+\usepackage{tikz-3dplot}
+
+
+%############################################
+%Tables and lists.
+%############################################
+
+%Colors in tables.
+\usepackage{colortbl} 
+
+%Long tables that allows page breaks.
+\usepackage{longtable} 
+
+%Join cells in a row.
+%\multicolumn{n}{cols}{text} already included. \multirow{n}{width, * for default size}{text} is added by the package.
+\usepackage{multirow} 
+
+
+
+
+
+%############################################
+%Mathematics.
+%############################################
+
+%Standard mathematics.
+\usepackage{amsmath,amsthm,amsfonts,amssymb,mathtools} 
+
+%\mathbbm{1} for unity operator.
+\usepackage{bbm} 
+
+%\nicefrac{}{} and units.
+\usepackage{units} 
+
+%Crossing out in formulas with \cancel{expression}.
+\usepackage{cancel} 
+
+%Tensor indices
+\usepackage{tensor} 
+
+%Fixes space around \ldots.
+\usepackage{ellipsis}
+
+%Bold mathematics in headings, etc..
+\makeatletter
+\g@addto@macro\bfseries{\boldmath}
+\makeatother
+	
+%Notation quantum mechanics.
+\newcommand{\bra}[1]{\langle #1 |}
+\newcommand{\ket}[1]{| #1 \rangle}
+\newcommand{\braket}[1]{\langle #1 \rangle}
+\newcommand{\Bra}[1]{\left\langle #1 \right|}
+\newcommand{\Ket}[1]{\left| #1 \right\rangle}
+\newcommand{\Braket}[1]{\left\langle #1 \right\rangle}
+
+%\boxed with additional horizontal space.
+\newcommand{\widebox}[1]{\boxed{\hspace{1em}#1\hspace{1em}}}
+
+
+
+
+
+
+\begin{document}
+	\begin{tikzpicture}
+
+	\end{tikzpicture}
+\end{document}
