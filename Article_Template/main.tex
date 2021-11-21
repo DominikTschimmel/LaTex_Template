@@ -251,6 +251,21 @@
 {\vspace{-10pt}\begin{addmargin}[12pt]{12pt}}{\end{addmargin} \vspace{10pt}}
 
 
+% convenient combination of environments and frames:
+
+\newenvironment{theorem}[1][]{\begin{framethm}\begin{thm}[#1]}{\end{thm}\end{framethm}}
+\newenvironment{proposition}[1][]{\begin{framethm}\begin{thm}[#1]}{\end{thm}\end{framethm}}
+\newenvironment{lemma}[1][]{\begin{framelemm}\begin{lemm}[#1]}{\end{lemm}\end{framelemm}}
+\newenvironment{corollary}[1][]{\begin{framecor}\begin{cor}[#1]}{\end{cor}\end{framecor}}
+\newenvironment{definition}[1][]{\begin{framedef}\begin{deff}[#1]}{\end{deff}\end{framedef}}
+\newenvironment{remark}[1][]{\begin{framerem}\begin{rem}[#1]}{\end{rem}\end{framerem}}
+\newenvironment{example}[1][]{\begin{frameexm}\begin{exm}[#1]}{\end{exm}\end{frameexm}}
+\renewenvironment{proof}[1][]{\begin{frameproof}\begin{prf}[#1]}{\end{prf}\end{frameproof}}
+
+\newenvironment{vartheorem}[1][]{\begin{framethm}\begin{VarThm}[#1]}{\end{VarThm}\end{framethm}}
+\newenvironment{varlemma}[1][]{\begin{framelemm}\begin{VarLemm}[#1]}{\end{VarLemm}\end{framelemm}}
+\newenvironment{varcorollary}[1][]{\begin{framecor}\begin{VarCor}[#1]}{\end{VarCor}\end{framecor}}
+\newenvironment{vardefinition}[1][]{\begin{framedef}\begin{VarDef}[#1]}{\end{VarDef}\end{framedef}}
 
 
 
