@@ -1,0 +1,134 @@
+% Font and spacing
+%#######################################################################
+
+%Scalable font similar to cm.
+\usepackage{lmodern} 
+
+%Sans serif font.
+%\renewcommand{\familydefault}{\sfdefault} 
+
+%1.5 line spacing and fix for arrays and tables.
+%\usepackage[onehalfspacing]{setspace}
+%\setdisplayskipstretch{}
+%\renewcommand{\arraystretch}{0.75}
+
+
+
+
+
+
+% Language
+%#######################################################################
+
+\usepackage[english]{babel} 
+
+
+
+
+
+
+
+% Hyperlinks
+%#######################################################################
+
+\usepackage[colorlinks=true, linkcolor=Cerulean!75!black, citecolor=green!60!black, urlcolor=Cerulean!75!black, linktocpage=true]{hyperref} 
+
+
+
+
+
+
+
+
+
+
+% Mathematics options
+%#######################################################################
+
+
+%Page breakes in multiline formulas.
+\allowdisplaybreaks 
+
+%Bold mathematics in headings, etc..
+\makeatletter
+\g@addto@macro\bfseries{\boldmath}
+\makeatother
+
+
+
+%Definition of the usual theorem environments.
+\newtheoremstyle{theorem}{\topsep}{\topsep}{\itshape}{}{\bf}{.\ \\}{.5ex}{}
+\newtheoremstyle{definition}{\topsep}{\topsep}{}{}{\bf}{.\ \\}{.5ex}{}
+\newtheoremstyle{info}{\topsep}{\topsep}{}{}{\bfseries \normalsize }{.\ \\}{.5ex}{}
+
+
+\theoremstyle{theorem}
+\newtheorem{theoremEnvironment}{Theorem}[section]
+\newtheorem{corollaryEnvironment}[theoremEnvironment]{Corollary}
+\newtheorem{lemmaEnvironment}[theoremEnvironment]{Lemma}
+\newtheorem{propositionEnvironment}[theoremEnvironment]{Proposition}
+
+%Variable theorem name using \renewcommand{\varName}{new name}.
+\newcommand{\varName}{varTheorem} 
+\newtheorem{varTheorem}[theoremEnvironment]{\varName}
+\newtheorem{varLemma}[theoremEnvironment]{\varName}
+\newtheorem{varCorollary}[theoremEnvironment]{\varName}
+
+\theoremstyle{definition}
+\newtheorem{definitionEnvironment}[theoremEnvironment]{Definition}
+\newtheorem{proofEnvironment}[theoremEnvironment]{Proof}
+\newtheorem{varDefinition}[theoremEnvironment]{\varName}
+
+\theoremstyle{info}
+\newtheorem{remarkEnvironment}[theoremEnvironment]{Remark}
+\newtheorem{exampleEnvironment}[theoremEnvironment]{Example}
+
+
+
+
+
+
+
+% convenient combination of environments and frames:
+
+\newenvironment{theorem}[1][]{\begin{theorem_frame}\begin{theoremEnvironment}[#1]}{\end{theoremEnvironment}\end{theorem_frame}}
+\newenvironment{proposition}[1][]{\begin{theorem_frame}\begin{theoremEnvironment}[#1]}{\end{theoremEnvironment}\end{theorem_frame}}
+\newenvironment{lemma}[1][]{\begin{lemma_frame}\begin{lemmaEnvironment}[#1]}{\end{lemmaEnvironment}\end{lemma_frame}}
+\newenvironment{corollary}[1][]{\begin{corollary_frame}\begin{corollaryEnvironment}[#1]}{\end{corollaryEnvironment}\end{corollary_frame}}
+\newenvironment{definition}[1][]{\begin{definition_frame}\begin{definitionEnvironment}[#1]}{\end{definitionEnvironment}\end{definition_frame}}
+\newenvironment{remark}[1][]{\begin{remark_frame}\begin{remarkEnvironment}[#1]}{\end{remarkEnvironment}\end{remark_frame}}
+\newenvironment{example}[1][]{\begin{example_frame}\begin{exampleEnvironment}[#1]}{\end{exampleEnvironment}\end{example_frame}}
+\renewenvironment{proof}[1][]{\begin{proof_frame}\begin{proofEnvironment}[#1]}{\end{proofEnvironment}\end{proof_frame}}
+
+\newenvironment{vartheorem}[1][]{\begin{theorem_frame}\begin{varTheorem}[#1]}{\end{varTheorem}\end{theorem_frame}}
+\newenvironment{varlemma}[1][]{\begin{lemma_frame}\begin{varLemma}[#1]}{\end{varLemma}\end{lemma_frame}}
+\newenvironment{varcorollary}[1][]{\begin{corollary_frame}\begin{varCorollary}[#1]}{\end{varCorollary}\end{corollary_frame}}
+\newenvironment{vardefinition}[1][]{\begin{definition_frame}\begin{varDefinition}[#1]}{\end{varDefinition}\end{definition_frame}}
+
+
+
+
+% Convenient notation for quantum mechanics
+%#######################################################################
+
+
+
+%Notation quantum mechanics.
+\newcommand{\bra}[1]{\langle #1 |}
+\newcommand{\ket}[1]{| #1 \rangle}
+\newcommand{\braket}[1]{\langle #1 \rangle}
+\newcommand{\Bra}[1]{\left\langle #1 \right|}
+\newcommand{\Ket}[1]{\left| #1 \right\rangle}
+\newcommand{\Braket}[1]{\left\langle #1 \right\rangle}
+
+%\boxed with additional horizontal space.
+\newcommand{\widebox}[1]{\boxed{\hspace{1em}#1\hspace{1em}}}
+
+
+
+
+% Additional packages/settings
+%#######################################################################
+
+
+\usepackage{tikz-3dplot}

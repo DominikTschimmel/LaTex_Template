@@ -1,168 +1,129 @@
-%############################################
-%Page layout.
-%############################################
+% Page layout
+%#######################################################################
 
-%Modern book class, index and lists in toc, two sided layout, chapters start on both sides, 12 pt font.
-\documentclass[index=totoc, bibliography=totoc,listof=totoc , twoside, openany,12pt]{scrbook} 
+\documentclass[12pt, a4paper, twoside, openany]{book} 
 
-
-%Recover old font commands for older packages.
-\makeatletter
-\DeclareOldFontCommand{\rm}{\normalfont\rmfamily}{\mathrm}
-\DeclareOldFontCommand{\sf}{\normalfont\sffamily}{\mathsf}
-\DeclareOldFontCommand{\tt}{\normalfont\ttfamily}{\mathtt}
-\DeclareOldFontCommand{\bf}{\normalfont\bfseries}{\mathbf}
-\DeclareOldFontCommand{\it}{\normalfont\itshape}{\mathit}
-\DeclareOldFontCommand{\sl}{\normalfont\slshape}{\@nomath\sl}
-\DeclareOldFontCommand{\sc}{\normalfont\scshape}{\@nomath\sc}
-\makeatother
-
-
-%1.5 line spacing and fix for arrays and tables.
-%\usepackage[onehalfspacing]{setspace}
-%\setdisplayskipstretch{}
-%\renewcommand{\arraystretch}{0.75}
-
-%Scalable font similar to cm.
-\usepackage{lmodern} 
- 
-%Sans serif font.
-%\renewcommand{\familydefault}{\sfdefault} 
- 
-%Define margins and dimensions.
 \usepackage[a4paper,includehead,bindingoffset=1cm,inner=2.0cm,outer = 2.5cm ,top=2cm,bottom=2.5cm]{geometry}   
- 
-
- 
 
 
 
+\usepackage{fancyhdr}
 
+% Default page style
+\pagestyle{fancy}
+\fancyhf{} % Reset default header and footer.
+\fancyhead[LE,RO]{\thepage} % Page number Left-Even and Right-Odd
+\fancyhead[RE]{\nouppercase{\leftmark}} % \leftmark is the current chapter.
+\fancyhead[LO]{\nouppercase{\rightmark}} % \rightmark is the current section.
 
-%############################################
-%Create header and footer.
-%############################################ 
- 
-%The package.
-\usepackage[automark]{scrlayer-scrpage}
-
-%Clear predefined header and footer.
-\pagestyle{scrheadings} \clearscrheadfoot 
-
-%Line below header.
-\KOMAoptions{headsepline=0.5pt:\textwidth}
-
-%Inner header [plain]{regualr}.
-\ihead[]{\headmark} 
-
-%Outer header [plain]{regualr}.
-\ohead[]{\thepage} 
-
-
-
-
-
-
-
-
-
-%############################################
-%Empty pages and title pages.
-%############################################ 
-
-%Write even/odd page-check-results to aux file with \checkoddpage. 
-\usepackage{ifoddpage}
-
-
-%Text on empty pages.
-\newcommand*{\blankpage}{%
-	\par\vspace*{\fill}%
-	{\centering \textcolor{black!80}{This page intentionally left blank.}\par}%the text to be displayed
-	\vspace{\fill}%
+% Redefine the plain page style to be empty.
+\fancypagestyle{plain}{
+	\fancyhf{}
+	\renewcommand{\headrulewidth}{0pt}
+	\renewcommand{\footrulewidth}{0pt}
 }
-\makeatletter
-\renewcommand*{\cleardoubleoddstandardpage}{%
-	\clearpage
-	\if@twoside
-	\checkoddpage
-	\ifodd\c@page
-	\else
-	\blankpage
-	\thispagestyle{empty}%
-	\newpage
-	\if@twocolumn\hbox{}\newpage\fi
-	\fi
-	\fi
-}
-\makeatother
+
+% Redefine the footnote rule to cover the full textwidth.
+\renewcommand{\footnoterule}{%
+  \kern -3pt
+  \hrule width \textwidth height 0.5pt
+  \kern 2pt
+}	
 
 
-%Part command that allows for text on the same page.
-%Defines \PartWithText{title}{text}.
-\newcommand{\PartWithText}[2]{
-\setpartpreamble[u,c][0.9 \textwidth]{
-	\vspace{1cm}
-	
-	\noindent
+
+
+
+
+
+
+
+
+%Set front matter \FrontMatter{title}{text}.
+\newcommand{\FrontMatter}[2]{
+	\frontmatter
+	\newgeometry{includeheadfoot,inner=2.5cm,outer = 2.5cm ,top=1cm,bottom=1cm}	
+	\include{title_page}
+	\restoregeometry
+	\setcounter{page}{0}
+	\clearpage{\thispagestyle{empty}\cleardoublepage}
+
+	\chapter*{#1}
+	\addcontentsline{toc}{chapter}{#1}
 	#2
-	
-}
-\part{#1}
-}
 
-
-
-
-
-
-
-
-
-
-
-
-
-%############################################
-%Adjust headings.
-%############################################
-
-%Print chapter number in separate line.
-\KOMAoption{chapterprefix}{true}
-
-%Define fonts for the chapter.
-\RedeclareSectionCommand[afterindent=false,beforeskip=0pt, innerskip = 0pt,
-font={\checkoddpage \ifoddpage \hfill \else \fi \huge\bfseries\fontfamily{bch}\selectfont},
-prefixfont={\fontsize{85pt}{95pt}\color{black!20}\bfseries \selectfont}]{chapter}
-
-%Style of chapter numbers.
-\renewcommand*{\chapterformat}{\thechapter}
-
-%Alignment of the chapter title.
-\renewcommand*{\raggedchapter}{ \checkoddpage \ifoddpage \raggedleft \else \raggedright \fi }
-
-%Layout of chapter content.
-\renewcommand{\chapterlineswithprefixformat}[3]{%
-	#2 %newlines already included 
-	#3 
-	\vspace{-1cm}
-	\rule[-1\baselineskip]{\textwidth}{0.5pt}%
+	\clearpage{\thispagestyle{empty}\cleardoublepage}
+	\tableofcontents
+	\clearpage{\thispagestyle{empty}\cleardoublepage}
+	\mainmatter
 }
 
-%Chapter spacings.
-\renewcommand*{\chapterheadstartvskip}{\vspace{-60pt}}
-\renewcommand*{\chapterheadendvskip}{\vspace{10pt}}
+
+
+% Set front matter (no preface).
+\newcommand{\FrontNoPreface}{
+	\frontmatter
+	\newgeometry{a4paper,includeheadfoot,inner=2.5cm,outer = 2.5cm ,top=1cm,bottom=1cm}	
+	\include{title_page}
+	\restoregeometry
+	\setcounter{page}{0}
+	\tableofcontents
+	\clearpage{\thispagestyle{empty}\cleardoublepage}
+	\mainmatter
+}
 
 
 
 
 
-%Adjustments to sections.
-\RedeclareSectionCommand[font={\Large \bfseries \fontfamily{bch}\selectfont}]{section}
-\RedeclareSectionCommand[font={\large \bfseries \fontfamily{bch}\selectfont}]{subsection}
-\RedeclareSectionCommand[font={\bfseries \fontfamily{bch}\selectfont}]{subsubsection}
 
 
-%Intro text for chapters.
+
+
+
+
+
+
+
+
+
+
+
+% Title customization
+%#######################################################################
+
+\usepackage[dvipsnames]{xcolor}
+\usepackage[noindentafter,nobottomtitles*]{titlesec}
+\usepackage{ifthen}
+
+
+
+% \makebox creates a box that fills the whole line, and aligns the content right/left.
+% Then, \raisebox raises the content (i.e. the chapter label) above the chapter text.
+\titleformat{name=\chapter}[display]
+{\ifthenelse{\isodd{\thepage}}{\filleft}{}  \huge\bfseries}
+{\ifthenelse{\isodd{\thepage}}%
+{\makebox[\linewidth][r]{\raisebox{120pt}[0pt][0pt]{\textcolor{gray!25}{\fontsize{80pt}{80pt}\rmfamily\selectfont\thechapter}}} }%
+{\makebox[\linewidth][l]{\raisebox{120pt}[0pt][0pt]{\textcolor{gray!25}{\fontsize{80pt}{80pt}\rmfamily\selectfont\thechapter}}}  }
+}
+{-14ex} 
+{}  
+[\vspace{0.5pt}\titlerule]
+
+
+\titleformat{name=\chapter , numberless}[display]
+{\ifthenelse{\isodd{\thepage}}{\filleft}{}  \huge\bfseries}
+{}
+{-14ex} 
+{}  
+[\vspace{0.5pt}\titlerule]
+
+
+
+\titlespacing{\chapter}{0pt}{3cm}{10pt}[0pt]
+
+
+% Intro text for chapters.
 \newcommand{\ChapterStart}[1]{ {\small \sffamily \selectfont #1 }\\
 	\rule{\textwidth}{0.5pt}}
 
@@ -179,303 +140,124 @@ prefixfont={\fontsize{85pt}{95pt}\color{black!20}\bfseries \selectfont}]{chapter
 
 
 
-%############################################
-%Language settings.
-%############################################
 
-%Choosing default document language.
-\usepackage[english]{babel} 
 
-%Allow special characters.
-\usepackage[utf8]{inputenc}	
-\usepackage[T1]{fontenc}
 
-%Optimization of micro spaces.
-\usepackage{microtype}	
 
 
 
 
 
+% Text improvements
+%#######################################################################
 
 
+\usepackage[font=footnotesize,format=plain, bf]{caption} %Caption improvements
 
+\usepackage{microtype}	% Optimization of micro spaces.
 
 
 
-%############################################
-%Colors and images.
-%############################################
 
-%Importing images.
-\usepackage{graphicx} 
 
-%More colors.
-\usepackage[dvipsnames]{xcolor} 
 
-%Caption improvements
-%Use \captionof{floating_type, e.g. figure}[figure/table entry]{Text} to create numbered captions outside of floating environments.
-\usepackage[font=footnotesize,format=plain, bf]{caption} 
 
-%More than one image in figure environments.
-\usepackage[font=footnotesize]{subcaption} 
 
-%Wrap text around figures.
-\usepackage{wrapfig} 
 
-%Colored frames in equations.
-\usepackage{empheq}
 
-%Tikz/pgf package to program graphics.
-\usepackage{tikz} 
 
-%Some useful libraries. Babel to fix problems with babel package.
-\usetikzlibrary{positioning, calc, intersections, cd, babel} 
-\usepackage{tikz-3dplot}
 
 
 
 
 
 
+% Back matter
+%#######################################################################
 
-
-
-
-%############################################
-%Tables and lists.
-%############################################
-
-%Colors in tables.
-\usepackage{colortbl} 
-
-%Long tables that allows page breaks.
-\usepackage{longtable} 
-
-%Join cells in a row.
-%\multicolumn{n}{cols}{text} already included. \multirow{n}{width, * for default size}{text} is added by the package.
-\usepackage{multirow} 
-
-%Additional counters for enumerations, e.g. [i)].
-\usepackage{paralist} 
-
-
-
-
-
-
-%############################################
-%Mathematics.
-%############################################
-
-%Standard mathematics.
-\usepackage{amsmath,amsthm,amsfonts,amssymb,mathtools} 
-
-%\mathbbm{1} for unity operator.
-\usepackage{bbm} 
-
-%\nicefrac{}{} and units.
-\usepackage{units} 
-
-%Crossing out in formulas with \cancel{expression}.
-\usepackage{cancel} 
-
-%Shrinking formula in gather to fit page.
-\usepackage{resizegather} 
-
-%Tensor indices
-\usepackage{tensor} 
-
-%Fixes space around \ldots.
-\usepackage{ellipsis}
-
-%Frames for theorems.
-\usepackage{tcolorbox}
-\tcbuselibrary{skins,breakable}
-
-
-
-
-
-
-
-%Page breakes in multiline formulas.
-\allowdisplaybreaks 
-
-%Bold mathematics in headings, etc..
-\makeatletter
-\g@addto@macro\bfseries{\boldmath}
-\makeatother
-
-
-
-%Definition of the usual theorem environments.
-
-%\newtheoremstyle{name}{space above}{space below}{content format}{indent space}{caption format}{after caption}{space below caption}{}.
-
-\newtheoremstyle{plain}{\topsep}{\topsep}{\itshape}{}{\bf}{.\ \\}{.5ex}{}
-\newtheoremstyle{definition}{\topsep}{\topsep}{}{}{\bf}{.\ \\}{.5ex}{}
-\newtheoremstyle{info}{\topsep}{\topsep}{}{}{\bfseries \normalsize }{.\ \\}{.5ex}{}
-
-
-\theoremstyle{plain}
-\newtheorem{thm}{Theorem}[section]
-\newtheorem{cor}[thm]{Corollary}
-\newtheorem{lemm}[thm]{Lemma}
-\newtheorem{prop}[thm]{Proposition}
-
-%Variable theorem name using \renewcommand{\VarThmName}{new name}.
-\newcommand{\VarThmName}{VarThm} 
-\newtheorem{VarThm}[thm]{\VarThmName}
-\newtheorem{VarLemm}[thm]{\VarThmName}
-\newtheorem{VarCor}[thm]{\VarThmName}
-
-\theoremstyle{definition}
-\newtheorem{deff}[thm]{Definition}
-\newtheorem{prf}[thm]{Proof}
-\newtheorem{VarDef}[thm]{\VarThmName}
-
-\theoremstyle{info}
-\newtheorem{rem}[thm]{Remark}
-\newtheorem{exm}[thm]{Example}
-
-%Frames for theorems.
-\newtcolorbox{framedef}{enhanced, colback = gray!50!blue!15, borderline = {0.5pt}{0mm}{gray!90!blue}, leftrule = 4pt, toprule = 0pt, bottomrule = 0pt, rightrule = 0 pt, beforeafter skip= 1em, breakable, after={\noindent}}
-\newtcolorbox{framethm}{enhanced, colback = gray!50!blue!25, borderline = {0.5pt}{0mm}{gray!90!blue},leftrule = 5pt, toprule = 0pt, bottomrule = 0pt, rightrule = 0 pt, beforeafter skip= 1em, breakable, after={\noindent}}
-\newtcolorbox{framelemm}{enhanced, colback = gray!50!blue!10, borderline = {0.5pt}{0mm}{gray!90!blue}, leftrule = 2pt, toprule = 0pt, bottomrule = 0pt, rightrule = 0 pt ,beforeafter skip= 1em, breakable, after={\noindent}}
-\newtcolorbox{framecor}{enhanced, colback = gray!50!blue!6, borderline = {0.5pt}{0mm}{gray!90!blue}, leftrule = 0pt, toprule = 0pt, bottomrule = 0pt, rightrule = 0 pt, beforeafter skip= 1em, breakable, after={\noindent}}
-\newtcolorbox{frameexm}{enhanced, colback = gray!50!blue!0, borderline = {0.5pt}{0mm}{gray!90!blue},leftrule = 0pt, toprule = 0pt, bottomrule = 0pt, rightrule = 0 pt , beforeafter skip= 1em, breakable, after={\noindent}}
-\newtcolorbox{framerem}{enhanced, colback = gray!50!blue!0, borderline = {0.5pt}{0mm}{gray!90!blue},leftrule = 0pt, toprule = 0pt, bottomrule = 0pt, rightrule = 0 pt , beforeafter skip= 1em, breakable, after={\noindent}}
-
-\newenvironment{frameproof}
-{\vspace{-10pt}\begin{addmargin}[12pt]{12pt}}{\end{addmargin} \vspace{10pt}}
-
-
-
-% convenient combination of environments and frames:
-
-\newenvironment{theorem}[1][]{\begin{framethm}\begin{thm}[#1]}{\end{thm}\end{framethm}}
-\newenvironment{proposition}[1][]{\begin{framethm}\begin{thm}[#1]}{\end{thm}\end{framethm}}
-\newenvironment{lemma}[1][]{\begin{framelemm}\begin{lemm}[#1]}{\end{lemm}\end{framelemm}}
-\newenvironment{corollary}[1][]{\begin{framecor}\begin{cor}[#1]}{\end{cor}\end{framecor}}
-\newenvironment{definition}[1][]{\begin{framedef}\begin{deff}[#1]}{\end{deff}\end{framedef}}
-\newenvironment{remark}[1][]{\begin{framerem}\begin{rem}[#1]}{\end{rem}\end{framerem}}
-\newenvironment{example}[1][]{\begin{frameexm}\begin{exm}[#1]}{\end{exm}\end{frameexm}}
-\renewenvironment{proof}[1][]{\begin{frameproof}\begin{prf}[#1]}{\end{prf}\end{frameproof}}
-
-\newenvironment{vartheorem}[1][]{\begin{framethm}\begin{VarThm}[#1]}{\end{VarThm}\end{framethm}}
-\newenvironment{varlemma}[1][]{\begin{framelemm}\begin{VarLemm}[#1]}{\end{VarLemm}\end{framelemm}}
-\newenvironment{varcorollary}[1][]{\begin{framecor}\begin{VarCor}[#1]}{\end{VarCor}\end{framecor}}
-\newenvironment{vardefinition}[1][]{\begin{framedef}\begin{VarDef}[#1]}{\end{VarDef}\end{framedef}}
-
-
-
-
-
-
-
-
-
-
-
-%############################################
-%Directories and links.
-%############################################
-
-%Literature with Biblatex.
-\usepackage[backend=bibtex, sorting = nyt, style=alphabetic]{biblatex} 
-\usepackage{csquotes}
-
-%Index package.
 \usepackage{imakeidx}
 
-%Literature file.
-\addbibresource{Literature.bib} 
 
 %Fixing too long entries.
 \makeatletter
 \def\@idxitem{\par\hangindent 2ex}
 \makeatother
 
-%Create index.
+%Create index with style.ist.
 \makeindex[intoc,options= -s index_style.ist]
 
-%Links in pdf.
-\usepackage[colorlinks=true, linkcolor=Cerulean!75!black, citecolor=green!60!black, urlcolor=Cerulean!75!black, linktocpage=true]{hyperref} 
 
-
-
-%############################################
-%Other useful packages. 
-%############################################	
-
-
-%Package for conditional use of \newpage: \needspace{2cm}.
-\usepackage{needspace}
-
-%Defines \FloatBarrier that blocks floating objects past the next \FloatBarrier command.
-\usepackage{placeins}
-
-%Rotate figures tables with \begin{sidewaysfigure} ... \end{sidewaysfigure} and sidewaystable...
-\usepackage{rotating}
-
-%############################################
-%Useful short commands.
-%############################################	
-	
-%Notation quantum mechanics.
-\newcommand{\bra}[1]{\langle #1 |}
-\newcommand{\ket}[1]{| #1 \rangle}
-\newcommand{\braket}[1]{\langle #1 \rangle}
-\newcommand{\Bra}[1]{\left\langle #1 \right|}
-\newcommand{\Ket}[1]{\left| #1 \right\rangle}
-\newcommand{\Braket}[1]{\left\langle #1 \right\rangle}
-
-%\boxed with additional horizontal space.
-\newcommand{\widebox}[1]{\boxed{\hspace{1em}#1\hspace{1em}}}
-
-
-
-%Set front matter {title}{text}.
-\newcommand{\FrontMatter}[2]{
-	\frontmatter
-	\newgeometry{includeheadfoot,inner=2.5cm,outer = 2.5cm ,top=1cm,bottom=1cm}	
-	\include{title_page}
-	\restoregeometry
-	\setcounter{page}{0}
-	\cleardoublepage
-
-	\chapter*{#1}
-	\addcontentsline{toc}{chapter}{#1}
-	#2
-
-	\cleardoublepage
-	\tableofcontents
-	\mainmatter
-}
-
-
-
-
-\newcommand{\FrontNoPreface}{
-	\frontmatter
-	\newgeometry{a4paper,includeheadfoot,inner=2.5cm,outer = 2.5cm ,top=1cm,bottom=1cm}	
-	\include{title_page}
-	\restoregeometry
-	\setcounter{page}{0}
-	\tableofcontents
-	\mainmatter
-}
-
-
-
-%Keep custom packages separated from the main.tex to allow easier updates.
-\input{CustomPackages.tex}
+% Add lists etc. (except the toc itself) to toc.
+\usepackage[nottoc]{tocbibind}
 
 
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+% Color frames
+%#######################################################################
+
+
+\usepackage{tcolorbox}
+\tcbuselibrary{skins,breakable}
+
+
+
+
+%Frames for theorems.
+\newtcolorbox{definition_frame}{enhanced, colback = gray!50!blue!15, borderline = {0.5pt}{0mm}{gray!90!blue}, leftrule = 4pt, toprule = 0pt, bottomrule = 0pt, rightrule = 0 pt, beforeafter skip= 1em, breakable, after={\noindent}}
+\newtcolorbox{theorem_frame}{enhanced, colback = gray!50!blue!25, borderline = {0.5pt}{0mm}{gray!90!blue},leftrule = 5pt, toprule = 0pt, bottomrule = 0pt, rightrule = 0 pt, beforeafter skip= 1em, breakable, after={\noindent}}
+\newtcolorbox{lemma_frame}{enhanced, colback = gray!50!blue!10, borderline = {0.5pt}{0mm}{gray!90!blue}, leftrule = 2pt, toprule = 0pt, bottomrule = 0pt, rightrule = 0 pt ,beforeafter skip= 1em, breakable, after={\noindent}}
+\newtcolorbox{corollary_frame}{enhanced, colback = gray!50!blue!6, borderline = {0.5pt}{0mm}{gray!90!blue}, leftrule = 0pt, toprule = 0pt, bottomrule = 0pt, rightrule = 0 pt, beforeafter skip= 1em, breakable, after={\noindent}}
+\newtcolorbox{example_frame}{enhanced, colback = gray!50!blue!0, borderline = {0.5pt}{0mm}{gray!90!blue},leftrule = 0pt, toprule = 0pt, bottomrule = 0pt, rightrule = 0 pt , beforeafter skip= 1em, breakable, after={\noindent}}
+\newtcolorbox{remark_frame}{enhanced, colback = gray!50!blue!0, borderline = {0.5pt}{0mm}{gray!90!blue},leftrule = 0pt, toprule = 0pt, bottomrule = 0pt, rightrule = 0 pt , beforeafter skip= 1em, breakable, after={\noindent}}
+
+
+
+% Change margins for proof frame.
+\usepackage[strict]{changepage}
+\newenvironment{proof_frame}{\begin{adjustwidth}{12pt}{12pt}}{\end{adjustwidth}}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+% Separate additional packages and user settings for better upgradeability.
+\input{SuggestedPackages.tex}
+\input{Settings.tex}
+
+
+
+
+
+% Separate content from document formatting.
 \begin{document}
 	\input{content.tex}
 \end{document}
